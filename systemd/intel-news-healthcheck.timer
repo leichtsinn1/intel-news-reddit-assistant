@@ -1,0 +1,10 @@
+[Unit]
+Description=Run Intel News Bot Health Check Daily
+
+[Timer]
+OnCalendar=*-*-* 09:00:00
+Persistent=true
+RandomizedDelaySec=5min
+
+[Install]
+WantedBy=timers.target
