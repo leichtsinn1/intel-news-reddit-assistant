@@ -1,0 +1,17 @@
+[
+  {
+    "name": "TechPowerUp",
+    "url": "https://www.techpowerup.com/rss/news",
+    "enabled": true
+  },
+  {
+    "name": "Wccftech",
+    "url": "https://wccftech.com/feed/",
+    "enabled": true
+  },
+  {
+    "name": "SemiAnalysis",
+    "url": "https://newsletter.semianalysis.com/feed",
+    "enabled": true
+  }
+]

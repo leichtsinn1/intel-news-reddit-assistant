@@ -1,0 +1,11 @@
+[Unit]
+Description=Run Intel News Collector every two hours
+
+[Timer]
+OnBootSec=5min
+OnUnitActiveSec=2h
+RandomizedDelaySec=5min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

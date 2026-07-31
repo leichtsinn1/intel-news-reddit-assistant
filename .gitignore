@@ -1,33 +1,24 @@
-# Secrets and environment files
 .env
 *.secret
 *.key
 credentials.json
 
-# Signal account data
-data/signal/
-.signal-cli/
-
-# Databases
+data/
+logs/
 *.db
 *.sqlite
 *.sqlite3
-
-# Logs
-logs/
 *.log
 
-# Python
-__pycache__/
-*.py[cod]
-venv/
-.venv/
-
-# Local configuration
+.signal-cli/
 config/sources.json
 config/reddit.json
 config/signal.json
 
-# Temporary files
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+
 *.tmp
 *.bak

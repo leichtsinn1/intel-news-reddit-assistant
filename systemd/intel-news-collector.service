@@ -1,0 +1,23 @@
+[Unit]
+Description=Intel News RSS Collector
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=intelbot
+Group=intelbot
+WorkingDirectory=/opt/intel-news-bot
+ExecStart=/opt/intel-news-bot/venv/bin/python /opt/intel-news-bot/app/collector.py
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/intel-news-bot/data /opt/intel-news-bot/logs
+
+MemoryMax=300M
+CPUQuota=50%
+
+[Install]
+WantedBy=multi-user.target

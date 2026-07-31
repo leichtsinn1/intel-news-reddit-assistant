@@ -1,0 +1,21 @@
+[Unit]
+Description=Intel News Signal Notifier
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=intelbot
+Group=intelbot
+WorkingDirectory=/opt/intel-news-bot
+
+ExecStart=/opt/intel-news-bot/venv/bin/python /opt/intel-news-bot/app/notifier.py
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/opt/intel-news-bot/data /opt/intel-news-bot/logs
+
+MemoryMax=350M
+CPUQuota=50%
