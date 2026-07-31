@@ -10,6 +10,7 @@ Group=intelbot
 WorkingDirectory=/opt/intel-news-bot
 ExecStart=/opt/intel-news-bot/venv/bin/python /opt/intel-news-bot/app/collector.py
 ExecStartPost=/opt/intel-news-bot/venv/bin/python /opt/intel-news-bot/app/classifier.py
+ExecStartPost=/opt/intel-news-bot/venv/bin/python /opt/intel-news-bot/app/deduplicator.py
 
 NoNewPrivileges=true
 PrivateTmp=true

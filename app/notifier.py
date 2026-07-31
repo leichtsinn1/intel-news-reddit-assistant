@@ -100,7 +100,7 @@ def main() -> int:
             classification_score
         FROM articles
         WHERE relevant = 1
-          AND status = 'classified'
+          AND status = 'ready_notify'
         ORDER BY id ASC
         LIMIT ?
         """,
