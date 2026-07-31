@@ -209,6 +209,7 @@ def main() -> int:
         FROM articles
         WHERE relevant = 1
           AND status IN (
+              'source_seeded',
               'ready_notify',
               'notified',
               'approved_waiting_reddit',

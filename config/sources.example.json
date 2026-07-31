@@ -1,5 +1,15 @@
 [
   {
+    "name": "Intel Investor Relations",
+    "url": "https://www.intc.com/news-events/press-releases/rss",
+    "enabled": true
+  },
+  {
+    "name": "Intel Newsroom",
+    "url": "https://newsroom.intel.com/feed/",
+    "enabled": true
+  },
+  {
     "name": "TechPowerUp",
     "url": "https://www.techpowerup.com/rss/news",
     "enabled": true

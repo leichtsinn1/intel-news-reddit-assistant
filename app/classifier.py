@@ -126,6 +126,37 @@ TYPE_TERMS = {
 }
 
 
+NEWSROOM_ARC_TERMS = {
+    "intel arc",
+    "arc g3",
+    "arc graphics",
+    "arc gpu",
+    "graphics driver",
+    "gpu driver",
+}
+
+NEWSROOM_STOCK_TERMS = {
+    "financial results",
+    "earnings",
+    "invests",
+    "investment",
+    "manufacturing",
+    "foundry",
+    "18a",
+    "14a",
+    "advanced packaging",
+    "semiconductor packaging",
+    "collaboration",
+    "collaborate",
+    "partnership",
+    "agreement",
+    "acquisition",
+    "restructuring",
+    "layoff",
+    "capital",
+}
+
+
 def configure_logging() -> None:
     logging.basicConfig(
         level=logging.INFO,
@@ -192,6 +223,7 @@ def determine_content_type(
 def classify_article(
     title: str,
     summary: str,
+    source: str = "",
 ) -> tuple[str, str, float, str]:
     text = f"{title} {summary}"
 
@@ -221,6 +253,35 @@ def classify_article(
         f"stock_score={stock_score}; "
         f"stock_terms={','.join(stock_matches) or 'none'}"
     )
+
+    if source == "Intel Newsroom":
+        newsroom_arc_matches = sorted(
+            term
+            for term in NEWSROOM_ARC_TERMS
+            if phrase_present(title, term)
+        )
+
+        newsroom_stock_matches = sorted(
+            term
+            for term in NEWSROOM_STOCK_TERMS
+            if phrase_present(title, term)
+        )
+
+        if newsroom_arc_matches:
+            target = "intelarc"
+            confidence = max(confidence, 0.90)
+            reason = (
+                "official_newsroom_arc="
+                f"{','.join(newsroom_arc_matches)}; {reason}"
+            )
+
+        elif newsroom_stock_matches:
+            target = "intelstock"
+            confidence = max(confidence, 0.85)
+            reason = (
+                "official_newsroom_stock="
+                f"{','.join(newsroom_stock_matches)}; {reason}"
+            )
 
     return target, content_type, confidence, reason
 
@@ -260,7 +321,7 @@ def main() -> int:
 
     articles = connection.execute(
         """
-        SELECT id, title, summary, status
+        SELECT id, source, title, summary, status
         FROM articles
         WHERE relevant = 1
           AND status != 'blocked_source'
@@ -276,7 +337,13 @@ def main() -> int:
         target, content_type, confidence, reason = classify_article(
             article["title"] or "",
             article["summary"] or "",
+            article["source"] or "",
         )
+
+        if article["source"] == "Intel Investor Relations":
+            target = "intelstock"
+            confidence = 0.99
+            reason = f"official_intel_ir_source; {reason}"
 
         new_status = article["status"]
 
