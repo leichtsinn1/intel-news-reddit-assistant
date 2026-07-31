@@ -53,7 +53,10 @@ def build_message(article: sqlite3.Row) -> str:
         f"ID: {article['id']}\n"
         f"Quelle: {article['source']}\n"
         f"Titel: {article['title']}\n"
-        f"Treffer: {article['matched_terms'] or 'nicht angegeben'}\n\n"
+        f"Treffer: {article['matched_terms'] or 'nicht angegeben'}\n"
+        f"Ziel: {article['target_subreddit']}\n"
+        f"Typ: {article['content_type']}\n"
+        f"Lokale Sicherheit: {article['classification_score']}\n\n"
         f"{article['original_url']}\n\n"
         "Noch nicht auf Reddit geprüft oder veröffentlicht."
     )
@@ -91,10 +94,13 @@ def main() -> int:
             source,
             title,
             original_url,
-            matched_terms
+            matched_terms,
+            target_subreddit,
+            content_type,
+            classification_score
         FROM articles
         WHERE relevant = 1
-          AND status = 'collected'
+          AND status = 'classified'
         ORDER BY id ASC
         LIMIT ?
         """,
