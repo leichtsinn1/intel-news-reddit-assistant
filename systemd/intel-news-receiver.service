@@ -1,0 +1,22 @@
+[Unit]
+Description=Intel News Signal Command Receiver
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=intelbot
+Group=intelbot
+WorkingDirectory=/opt/intel-news-bot
+
+ExecStart=/usr/bin/flock -n /opt/intel-news-bot/data/signal-cli.lock /opt/intel-news-bot/venv/bin/python /opt/intel-news-bot/app/receiver.py
+
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectHome=true
+ProtectSystem=strict
+ReadWritePaths=/opt/intel-news-bot/data /opt/intel-news-bot/logs
+
+MemoryMax=350M
+CPUQuota=50%
+TimeoutStartSec=60
