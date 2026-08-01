@@ -9,7 +9,7 @@ User=intelbot
 Group=intelbot
 WorkingDirectory=/opt/intel-news-bot
 
-ExecStart=/opt/intel-news-bot/venv/bin/python /opt/intel-news-bot/app/notifier.py
+ExecStart=/usr/bin/flock -w 30 /opt/intel-news-bot/data/signal-cli.lock /opt/intel-news-bot/venv/bin/python /opt/intel-news-bot/app/notifier.py
 
 NoNewPrivileges=true
 PrivateTmp=true

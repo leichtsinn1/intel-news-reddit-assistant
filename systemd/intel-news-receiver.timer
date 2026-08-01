@@ -1,10 +1,10 @@
 [Unit]
-Description=Check Signal commands every two minutes
+Description=Check Signal commands quickly
 
 [Timer]
-OnBootSec=3min
-OnUnitActiveSec=2min
-Persistent=true
+OnBootSec=15s
+OnUnitInactiveSec=10s
+AccuracySec=1s
 
 [Install]
 WantedBy=timers.target
